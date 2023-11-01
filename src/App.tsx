@@ -1,23 +1,15 @@
 import React, { useEffect } from 'react';
 import { useFormik } from 'formik';
-import * as Yup from 'yup';
-import { postApi } from './api'
-import { UserForm } from './UserForm'
+
+import { postApi } from './api';
+import { UserForm } from './Form/UserForm';
+import { UserFormValues } from './Form/types';
+import { validationSchema } from './Form/validation';
 
 const initialValues = {
   name: '',
   email: '',
 };
-
-export type UserFormValues = {
-  name: string;
-  email: string;
-};
-
-const validationSchema = Yup.object({
-  name: Yup.string().required('名前は必須項目です'),
-  email: Yup.string().email('有効なメールアドレスを入力してください').required('メールアドレスは必須項目です'),
-});
 
 function App() {
   const formik = useFormik<UserFormValues>({
@@ -25,11 +17,11 @@ function App() {
     validationSchema,
     onSubmit: async (values) => {
       try {
-        const response =  await postApi({
+        const response = await postApi({
           title: values.name, // 名前をタイトルとして使用
           body: values.email, // メールアドレスを本文として使用
           userId: 1, // ユーザーIDを適切に設定
-        })
+        });
         // レスポンスをコンソールに出力
         console.log('APIレスポンス:', response.data);
       } catch (error) {
@@ -41,8 +33,6 @@ function App() {
   useEffect(() => {
     formik.validateForm(); // フォームが最初にロードされたときにバリデーションを実行
   }, []); // 空の依存リストを指定して一度だけ実行されるように
-
-
 
   return (
     <div>
