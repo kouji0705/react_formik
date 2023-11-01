@@ -8,7 +8,9 @@ function App() {
   return (
     <div>
       <h1>Formikサンプル</h1>
-      <UserForm formik={formik} />
+      <UserForm formik={formik}>
+        <div>test</div>
+      </UserForm>
     </div>
   );
 }

@@ -36,5 +36,5 @@ export const UserFormFields: React.FC<UserFormFieldsProps> = (props) => {
 };
 
 type UserFormFieldsProps = {
-  formik: FormikProps<UserFormValues>; // YourFormValuesにはフォームの値の型を指定
+  formik: FormikProps<UserFormValues>;
 };
