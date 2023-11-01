@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
-import axios from 'axios';
 import { postApi } from './api'
 import { UserForm } from './UserForm'
 
@@ -10,13 +9,18 @@ const initialValues = {
   email: '',
 };
 
+export type UserFormValues = {
+  name: string;
+  email: string;
+};
+
 const validationSchema = Yup.object({
   name: Yup.string().required('名前は必須項目です'),
   email: Yup.string().email('有効なメールアドレスを入力してください').required('メールアドレスは必須項目です'),
 });
 
 function App() {
-  const formik = useFormik({
+  const formik = useFormik<UserFormValues>({
     initialValues,
     validationSchema,
     onSubmit: async (values) => {

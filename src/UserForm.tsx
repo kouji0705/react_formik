@@ -1,4 +1,6 @@
+import { FormikProps } from 'formik'
 import React from 'react';
+import { UserFormValues } from './App'
 
 export const UserForm:React.FC<UserFormProps> = (props) => {
   const { formik } = props
@@ -41,5 +43,5 @@ export const UserForm:React.FC<UserFormProps> = (props) => {
 }
 
 type UserFormProps = {
-  formik:any
-}
+  formik: FormikProps<UserFormValues>; // YourFormValuesにはフォームの値の型を指定
+};
