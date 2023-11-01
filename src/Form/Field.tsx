@@ -4,7 +4,7 @@ import { UserFormValues } from './types';
 
 type FieldProps = {
   formik: FormikProps<UserFormValues>;
-  fieldName: keyof UserFormValues;
+  fieldName: keyof UserFormValues; // keyofでUserFormValuesのプロパティ名を取得
   label: string;
   type: string;
 };
