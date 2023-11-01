@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
+import axios from 'axios';
 
 const initialValues = {
   name: '',
@@ -16,15 +17,34 @@ function App() {
   const formik = useFormik({
     initialValues,
     validationSchema,
-    onSubmit: (values) => {
-      // フォームが送信されたときの処理
-      console.log(values);
+    onSubmit: async (values) => {
+      try {
+        // JSONPlaceholderのAPIエンドポイント
+        const apiUrl = 'https://jsonplaceholder.typicode.com/posts';
+
+        // POSTリクエストのデータ
+        const postData = {
+          title: values.name, // 名前をタイトルとして使用
+          body: values.email, // メールアドレスを本文として使用
+          userId: 1, // ユーザーIDを適切に設定
+        };
+
+        // POSTリクエストを送信
+        const response = await axios.post(apiUrl, postData);
+
+        // レスポンスをコンソールに出力
+        console.log('APIレスポンス:', response.data);
+      } catch (error) {
+        console.error('APIエラー:', error);
+      }
     },
   });
 
   useEffect(() => {
     formik.validateForm(); // フォームが最初にロードされたときにバリデーションを実行
   }, []); // 空の依存リストを指定して一度だけ実行されるように
+
+
 
   return (
     <div>
