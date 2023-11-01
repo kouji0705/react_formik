@@ -3,6 +3,7 @@ import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import axios from 'axios';
 import { postApi } from './api'
+import { UserForm } from './UserForm'
 
 const initialValues = {
   name: '',
@@ -42,39 +43,7 @@ function App() {
   return (
     <div>
       <h1>Formikサンプル</h1>
-      <form onSubmit={formik.handleSubmit}>
-        <div>
-          <label htmlFor="name">名前</label>
-          <input
-            type="text"
-            id="name"
-            name="name"
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            value={formik.values.name}
-          />
-          {formik.touched.name && formik.errors.name ? (
-            <div>{formik.errors.name}</div>
-          ) : null}
-        </div>
-
-        <div>
-          <label htmlFor="email">メールアドレス</label>
-          <input
-            type="email"
-            id="email"
-            name="email"
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            value={formik.values.email}
-          />
-          {formik.touched.email && formik.errors.email ? (
-            <div>{formik.errors.email}</div>
-          ) : null}
-        </div>
-
-        <button type="submit" disabled={!formik.isValid}>送信</button>
-      </form>
+      <UserForm formik={formik} />
     </div>
   );
 }
