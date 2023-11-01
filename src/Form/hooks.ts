@@ -2,15 +2,11 @@ import { useFormik } from 'formik';
 import { useEffect } from 'react';
 import { postApi } from '../api/api';
 import { validationSchema } from './validation';
-
-const initialValues = {
-  name: '',
-  email: '',
-};
+import { UserInitialValues } from './const';
 
 export function useMyFormik() {
   const formik = useFormik({
-    initialValues,
+    initialValues: UserInitialValues,
     validationSchema,
     onSubmit: async (values) => {
       try {
