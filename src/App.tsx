@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import axios from 'axios';
+import { postApi } from './api'
 
 const initialValues = {
   name: '',
@@ -19,19 +20,11 @@ function App() {
     validationSchema,
     onSubmit: async (values) => {
       try {
-        // JSONPlaceholderのAPIエンドポイント
-        const apiUrl = 'https://jsonplaceholder.typicode.com/posts';
-
-        // POSTリクエストのデータ
-        const postData = {
+        const response =  await postApi({
           title: values.name, // 名前をタイトルとして使用
           body: values.email, // メールアドレスを本文として使用
           userId: 1, // ユーザーIDを適切に設定
-        };
-
-        // POSTリクエストを送信
-        const response = await axios.post(apiUrl, postData);
-
+        })
         // レスポンスをコンソールに出力
         console.log('APIレスポンス:', response.data);
       } catch (error) {
