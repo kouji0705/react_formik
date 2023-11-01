@@ -1,40 +1,51 @@
-import { FormikProps } from 'formik';
 import React from 'react';
+import { FormikProps } from 'formik';
 import { UserFormValues } from './types';
-
-export const UserFormFields: React.FC<UserFormFieldsProps> = (props) => {
-  const { formik } = props;
-  return (
-    <div>
-      <div>
-        <label htmlFor="name">名前</label>
-        <input
-          type="text"
-          id="name"
-          name="name"
-          onChange={formik.handleChange}
-          onBlur={formik.handleBlur}
-          value={formik.values.name}
-        />
-        {formik.errors.name ? <div>{formik.errors.name}</div> : null}
-      </div>
-
-      <div>
-        <label htmlFor="email">メールアドレス</label>
-        <input
-          type="email"
-          id="email"
-          name="email"
-          onChange={formik.handleChange}
-          onBlur={formik.handleBlur}
-          value={formik.values.email}
-        />
-        {formik.errors.email ? <div>{formik.errors.email}</div> : null}
-      </div>
-    </div>
-  );
-};
 
 type UserFormFieldsProps = {
   formik: FormikProps<UserFormValues>;
 };
+
+export const UserFormFields: React.FC<UserFormFieldsProps> = ({ formik }) => {
+  return (
+    <div>
+      <Field formik={formik} fieldName="name" label="名前" type="text" />
+      <Field
+        formik={formik}
+        fieldName="email"
+        label="メールアドレス"
+        type="email"
+      />
+    </div>
+  );
+};
+
+type FieldProps = {
+  formik: FormikProps<UserFormValues>;
+  fieldName: keyof UserFormValues;
+  label: string;
+  type: string;
+};
+
+const Field: React.FC<FieldProps> = ({ formik, fieldName, label, type }) => {
+  const fieldError = formik.errors[fieldName];
+  const fieldValue = formik.values[fieldName];
+  const fieldTouched = formik.touched[fieldName];
+
+  return (
+    <div>
+      <label htmlFor={fieldName}>{label}</label>
+      <input
+        type={type}
+        id={fieldName as string}
+        name={fieldName as string}
+        onChange={formik.handleChange}
+        onBlur={formik.handleBlur}
+        value={fieldValue}
+      />
+      {fieldTouched && fieldError && <div>{fieldError}</div>}
+    </div>
+  );
+};
+
+export default Field;
