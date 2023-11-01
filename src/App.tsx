@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 
@@ -21,6 +21,10 @@ function App() {
       console.log(values);
     },
   });
+
+  // useEffect(() => {
+  //   formik.validateForm(); // フォームが最初にロードされたときにバリデーションを実行
+  // }, []); // 空の依存リストを指定して一度だけ実行されるように
 
   return (
     <div>
@@ -56,7 +60,7 @@ function App() {
           ) : null}
         </div>
 
-        <button type="submit">送信</button>
+        <button type="submit" disabled={!formik.isValid}>送信</button>
       </form>
     </div>
   );
