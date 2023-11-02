@@ -1,5 +1,5 @@
 import React from 'react';
-import { UserForm } from './Form/UserForm';
+import { UserForm } from './Form';
 import { useMyFormik } from './Form/hooks';
 import { UserFormFields } from './Form/UserFormFileds';
 
